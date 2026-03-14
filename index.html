@@ -1,7 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Heart Glow</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -20,10 +22,10 @@ font-family:Arial;
 color:white;
 }
 
-/* small heart */
+/* center heart */
 
 .center-heart{
-font-size:90px;
+font-size:14vmin;
 color:#ff3b3b;
 cursor:pointer;
 position:absolute;
@@ -36,68 +38,69 @@ animation:pulse 2s infinite;
 100%{transform:scale(1)}
 }
 
-/* big heart */
+/* responsive big heart */
 
 .big-heart{
 position:absolute;
-width:420px;
-height:420px;
+width:60vmin;
+height:60vmin;
 left:50%;
-top:55%;
+top:50%;
 transform:translate(-50%,-50%) rotate(-45deg);
 opacity:0;
 transition:1s;
 background:red;
-box-shadow:0 0 80px red,0 0 150px red,0 0 250px red;
+box-shadow:0 0 40px red,0 0 90px red,0 0 140px red;
 }
 
 .big-heart::before,
 .big-heart::after{
 content:"";
 position:absolute;
-width:420px;
-height:420px;
+width:60vmin;
+height:60vmin;
 background:red;
 border-radius:50%;
 }
 
-.big-heart::before{top:-210px;}
-.big-heart::after{left:210px;}
+.big-heart::before{top:-30vmin;}
+.big-heart::after{left:30vmin;}
 
 .show{opacity:0.15}
 
-/* main text */
+/* center text */
 
 .text{
 position:absolute;
-font-size:80px;
+font-size:8vmin;
 font-weight:bold;
 color:#ff5a7a;
-text-shadow:0 0 25px #ff4d6d;
+text-shadow:0 0 20px #ff4d6d;
 text-align:center;
+max-width:90%;
 }
 
-/* glowing heart */
+/* heart near RAM */
 
 .final-heart{
-margin-left:10px;
-font-size:60px;
+margin-left:8px;
+font-size:7vmin;
 color:#ff4d6d;
 animation:heartGlow 1.5s infinite;
 }
 
 @keyframes heartGlow{
-0%{text-shadow:0 0 10px red}
-50%{text-shadow:0 0 35px red}
-100%{text-shadow:0 0 10px red}
+0%{text-shadow:0 0 8px red}
+50%{text-shadow:0 0 25px red}
+100%{text-shadow:0 0 8px red}
 }
 
 /* JeRi text */
 
 .jeri{
 position:absolute;
-top:60%;
-font-size:45px;
+top:62%;
+font-size:6vmin;
 font-family:'Pacifico',cursive;
 color:#ff79a6;
 opacity:0;
@@ -113,7 +116,7 @@ to{opacity:1; transform:translateY(0)}
 
 .lang{
 position:absolute;
-font-size:20px;
+font-size:3.5vmin;
 opacity:0;
 animation:fadeFloat 3s ease forwards;
 }
@@ -137,8 +140,8 @@ to{opacity:0}
 
 .star{
 position:absolute;
-width:3px;
-height:3px;
+width:2px;
+height:2px;
 background:white;
 border-radius:50%;
 opacity:0;
@@ -146,11 +149,9 @@ animation:starGlow 3s infinite;
 }
 
 @keyframes starGlow{
-
 0%{opacity:0; transform:scale(0.5)}
-50%{opacity:1; transform:scale(1.5)}
+50%{opacity:1; transform:scale(1.4)}
 100%{opacity:0; transform:scale(0.5)}
-
 }
 
 </style>
@@ -169,11 +170,9 @@ const bigHeart=document.getElementById("bigHeart")
 const text=document.getElementById("text")
 
 heart.onclick=()=>{
-
 heart.style.display="none"
 bigHeart.classList.add("show")
 typeWriter("ஜெயந்தி")
-
 }
 
 function typeWriter(word){
@@ -184,47 +183,33 @@ let i=0
 function typing(){
 
 if(i<word.length){
-
 text.innerHTML+=word.charAt(i)
 i++
-setTimeout(typing,200)
-
+setTimeout(typing,150)
 }else{
-
 if(word==="ஜெயந்தி") showNames()
 else showEnding()
-
 }
 
 }
 
 typing()
-
 }
-
-/* random color */
 
 function randomColor(){
 
 const colors=["#ff4d4d","#ffa500","#ffd700","#00bfff","#9370db","#ff69b4"]
 
 return colors[Math.floor(Math.random()*colors.length)]
-
 }
-
-/* create names */
 
 const baseNames=["Jeyanthi","ஜெயந்தி","जेयंती","ジェヤンティ","Джеянти"]
 
 let names=[]
 
 while(names.length<170){
-
 names.push(baseNames[Math.floor(Math.random()*baseNames.length)])
-
 }
-
-/* show floating names */
 
 function showNames(){
 
@@ -233,6 +218,7 @@ names.forEach((word,index)=>{
 setTimeout(()=>{
 
 const span=document.createElement("span")
+
 span.className="lang"
 span.innerText=word
 span.style.left=Math.random()*100+"vw"
@@ -241,12 +227,11 @@ span.style.color=randomColor()
 
 document.body.appendChild(span)
 
-},index*80)
+},index*70)
 
 })
 
-setTimeout(startFinalMessage,names.length*80+2000)
-
+setTimeout(startFinalMessage,names.length*70+2000)
 }
 
 function startFinalMessage(){
@@ -264,36 +249,34 @@ text.classList.remove("fade-out")
 typeWriter("Jeyanthi - Ram")
 
 },1500)
-
 }
-
-/* ending */
 
 function showEnding(){
 
 const heartIcon=document.createElement("span")
+
 heartIcon.className="final-heart"
 heartIcon.innerHTML="❤"
+
 text.appendChild(heartIcon)
 
 setTimeout(()=>{
 
 const jeri=document.createElement("div")
+
 jeri.className="jeri"
 jeri.innerText="JeRi"
+
 document.body.appendChild(jeri)
 
 createGalaxy()
 
 },800)
-
 }
-
-/* galaxy stars */
 
 function createGalaxy(){
 
-for(let i=0;i<200;i++){
+for(let i=0;i<180;i++){
 
 const star=document.createElement("div")
 
@@ -301,8 +284,7 @@ star.className="star"
 
 star.style.left=Math.random()*100+"vw"
 star.style.top=Math.random()*100+"vh"
-
-star.style.animationDelay=Math.random()*5+"s"
+star.style.animationDelay=Math.random()*4+"s"
 
 document.body.appendChild(star)
 
@@ -314,3 +296,4 @@ document.body.appendChild(star)
 
 </body>
 </html>
+```
